@@ -21,6 +21,7 @@ class LunarC2 < Sinatra::Base
 
 	# Register routes
 	register Sinatra::LunarC2::Routing::Sessions
+	register Sinatra::LunarC2::Routing::Auth
 
 	# Warden Configuration
 	use Warden::Manager do |config|

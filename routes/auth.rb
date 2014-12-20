@@ -34,10 +34,14 @@ module Sinatra
 						redirect '/auth/login'
 					end
 
-					get '/protected' do 
+					app.get '/protected' do 
 						env['warden'].authenticate!
 						@current_user = env['warden'].user
 						erb :protected
 					end
-
+					
 				end
+			end
+		end
+	end
+end
