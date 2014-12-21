@@ -17,43 +17,13 @@ class LunarC2 < Sinatra::Base
 	DataMapper.auto_upgrade!
 
 	enable :sessions
+	set :static, true
+	set :public_folder, "#{Dir.pwd}/static"
+
 	register Sinatra::Flash
 
 	# Register routes
 	register Sinatra::LunarC2::Routing::Sessions
 	register Sinatra::LunarC2::Routing::Auth
-
-	# Warden Configuration
-	use Warden::Manager do |config|
-		config.serialize_into_session{|user| user.id}
-		config.serialize_from_session{|user| User.get(id)}
-
-		config.scope_defaults :default,
-			strategies: [:password],
-			action: 'auth/unauthenticated'
-
-		config.failure_app = self
-	end
-
-	Warden::Manager.before_failure do |env, opts|
-		env['REQUEST_METHOD'] = 'POST'
-	end
-
-	Warden::Strategies.add(:password) do
-		def valid?
-			params['user']['username'] && params['user']['password']
-		end
-
-		def authenticate!
-			user = User.first(username: params['user']['username'])
-			if user.nil?
-				fail!("The username you entered does not exist.")
-			elsif user.authenticate(params['user']['password'])
-				success!(user)
-			else
-				fail("Could not log in")
-			end
-		end
-	end
 
 end

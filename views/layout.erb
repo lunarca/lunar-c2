@@ -1,8 +1,18 @@
 <html>
 <head>
 	<title>LunarC2</title>
+	<link rel="stylesheet" type="text/css" href="/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="/css/foundation.min.css" />
+	<link rel="stylesheet" type="text/css" href="/css/lunarc2.css" />
 </head>
 <body>
-	<%= yield %>
+	<div class="row">
+		<div id="content" class="large-12 columns">
+			<%= yield %>
+		</div>
+	</div>
+	<script src="/js/foundation.min.js" />
+	<script src="/js/vendor/modernizr.js" />
 </body>
+
 </html>

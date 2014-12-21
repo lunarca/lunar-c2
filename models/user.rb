@@ -2,7 +2,7 @@ class User
 	include DataMapper::Resource
 
 	property :id, Serial, key: true
-	property :username, String
+	property :username, String, unique: true
 	property :password, BCryptHash
 
 	def authenticate(attempted_password)
