@@ -7,6 +7,8 @@ require './routes'
 # Model Files
 require './models'
 
+require 'securerandom'
+
 
 class LunarC2 < Sinatra::Base
 	configure do
