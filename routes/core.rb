@@ -5,9 +5,7 @@ module Sinatra
 				def self.registered(app)
 
 					app.get '/' do 
-						if session[:username]
-							@user = session[:username]
-						end
+						
 						erb :home
 					end
 

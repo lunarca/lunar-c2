@@ -29,4 +29,11 @@ class LunarC2 < Sinatra::Base
 	register Sinatra::LunarC2::Routing::Auth
 	register Sinatra::LunarC2::Routing::Core
 
+	before do
+		pass if request.path_info == "/auth/login"
+		if not session[:username]
+			redirect "/auth/login"
+		end
+	end
+
 end
