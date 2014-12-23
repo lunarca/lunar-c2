@@ -5,6 +5,7 @@ class Task
 
 	property :input, String
 	property :output, String
+	property :open, Boolean
 
 	belongs_to :agent
 end
