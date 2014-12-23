@@ -43,7 +43,22 @@ module Sinatra
 					end
 
 					app.post '/c2/update/:id' do
-
+						@agent = Agent.first(id: params[:id])
+						if @agent.nil? or not @agent.authenticate(params[:auth_code])
+							@path = request.path_info
+							jbuilder :error_json
+						else
+							data = JSON.parse(params[:tasks])
+							@saved_tasks = []
+							data["tasks"].each do |task|
+								t = Task.first(id: task["id"])
+								t.output = task["output"]
+								if t.save
+									@saved_tasks << t
+								end
+							end
+							jbuilder :update_json
+						end
 					end
 
 				end

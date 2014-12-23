@@ -8,6 +8,7 @@ require './routes'
 require './models'
 
 require 'securerandom'
+require 'json'
 
 
 class LunarC2 < Sinatra::Base
