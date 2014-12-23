@@ -11,33 +11,32 @@ module Sinatra
 					app.post '/auth/login' do
 						user = User.first(username: params['username'])
 						if user.nil?
-							flash[:error] = "User does not exist"
+							flash[:error] = "User #{params['username']} does not exist"
 							redirect '/auth/login'
 						end
 
 						if user.authenticate params['password']
+							flash[:success] = "Logged in successfully"
 							session[:username] = user.username
 							redirect '/'
 						else
-							flash[:error] = "Password is not correct"
+							flash[:error] = "Wrong Password"
 							redirect '/auth/login'
 						end
 					end
 
 					app.get '/auth/logout' do
-						
-						flash[:success] = "Successfully logged out"
+						flash[:success] = "Logged out successfully"
+						session[:username] = nil
 						redirect '/'
 					end
 
-					app.post '/auth/unauthenticated' do
-						
-						flash[:error] = env['warden'].message || "You must log in"
-						redirect '/auth/login'
-					end
-
 					app.get '/protected' do 
-						erb :protected
+						if session[:username]
+							erb :protected
+						else
+							redirect '/'
+						end
 					end
 
 				end

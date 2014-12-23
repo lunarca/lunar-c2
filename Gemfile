@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
-gem 'sinatra-flash', '0.3.0', require: "sinatra/flash"
+gem 'sinatra-flash', require: "sinatra/flash"
 
 gem 'data_mapper'
 
