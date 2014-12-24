@@ -5,8 +5,7 @@ module Sinatra
 				def self.registered(app)
 
 					app.get '/' do 
-						
-						erb :home
+						redirect '/agents'
 					end
 
 				end

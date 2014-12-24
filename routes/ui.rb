@@ -4,13 +4,13 @@ module Sinatra
 			module UI
 				def self.registered(app) 
 					app.get '/agents' do
-						@agents = Agent.all(order: [:updated_at.asc])
+						@agents = Agent.all(order: [:updated_at.desc])
 						erb :agents_list
 					end
 
 					app.get '/agents/:id' do
 						@agent = Agent.first(id: params[:id])
-						@tasks = Task.all(agent: @agent, order: [:created_at.asc])
+						@tasks = Task.all(agent: @agent, order: [:created_at.desc])
 						erb :agent_tasks
 					end
 

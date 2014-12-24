@@ -1,0 +1,10 @@
+<h1>Agents</h1>
+
+<ul>
+	<% @agents.each do |agent| %>
+		<li class="agent">
+			<a href="/agents/<%= agent.id %>"><%= agent.name ? agent.name : agent.mac %></a>
+			<span class="right">Last Updated: <%= agent.updated_at.strftime("%I:%M %p on %b %e, %Y") %> </span>
+		</li>
+	<% end %>
+</ul>
