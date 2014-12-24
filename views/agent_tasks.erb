@@ -1,0 +1,24 @@
+<h1><%= @agent.name ? @agent.name : @agent.mac %></h1>
+
+<form action="/agents/<%=@agent.id%>/task" method="post">
+	<div class="row">
+		<div class="large-8 columns">
+			<input type="text" name="input">
+		</div>
+		<div class="large-4 columns">
+			<input class="right button small" type="submit" value="submit">
+		</div>
+	</div>
+</form>
+<table>
+	<% @tasks.each do |task| %>
+		<tr>
+			<td><%= task.input %></td>
+			<td><%= task.output %></td>
+			<td><%= not task.open %></td>
+			<% if task.updated_at %>
+				<td><%= task.updated_at.strftime("%I:%M %p, %b %e, %Y") %></td> 
+			<% end %>
+		</tr>
+	<% end %>
+</table>
