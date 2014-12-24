@@ -6,6 +6,8 @@ class Task
 	property :input, String
 	property :output, String
 	property :open, Boolean
+	property :created_at, DateTime
+	property :updated_at, DateTime
 
 	belongs_to :agent
 end

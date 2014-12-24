@@ -10,6 +10,7 @@ module Sinatra
 
 					app.get '/agents/:id' do
 						@agent = Agent.first(id: params[:id])
+						@tasks = Task.all(agent: @agent, order: [:created_at.asc])
 						erb :agent_tasks
 					end
 
