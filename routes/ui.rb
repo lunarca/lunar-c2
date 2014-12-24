@@ -2,18 +2,24 @@ module Sinatra
 	module LunarC2
 		module Routing
 			module UI
-				def self.registered(app) do
+				def self.registered(app) 
 					app.get '/agents' do
 						@agents = Agent.all(order: [:updated_at.asc])
+						erb :agents_list
 					end
 
 					app.get '/agents/:id' do
 						@agent = Agent.first(id: params[:id])
+						erb :agent_tasks
 					end
 
 					app.post '/agents/:id/task' do
 						@agent = Agent.first(id: params[:id])
 						@task = Task.create(input: params[:input], open: true, agent: @agent)
+						respond_to do |f|
+							f.json {jbuilder :task_created}
+							f.on('*/*') {redirect "/agents/#{params[:id]}"}
+						end
 					end
 
 					app.get '/agents/:id/tasks.json' do
