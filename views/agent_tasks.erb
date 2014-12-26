@@ -1,4 +1,4 @@
-<h1><%= @agent.name ? @agent.name : @agent.mac %></h1>
+<h1><%= @agent.name ? @agent.name : @agent.id %></h1>
 
 <form action="/agents/<%=@agent.id%>/task" method="post">
 	<div class="row">

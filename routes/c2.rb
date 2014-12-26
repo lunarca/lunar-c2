@@ -20,9 +20,22 @@ module Sinatra
 						@secret = ""
 						if not @agent = Agent.first(mac: params[:mac])
 							@secret = SecureRandom.uuid
-							@agent = Agent.create(mac: params[:mac], 
-											last_ip: params[:ip], 
-											auth_code: @secret)
+
+							@data = JSON.parse(params[:data])
+
+							@agent = Agent.create(
+								name: data["hostname"],
+								agent_type: data["agent_type"],
+								operating_system: data["os"],
+								auth_code: @secret
+							)
+							@data["nics"].each do |nic|
+								Nic.create(
+									hw_addr: nic["hw_addr"],
+									last_ip: nic["ip"],
+									agent: @agent
+								)
+							end
 						end
 						jbuilder :initial_json
 					end	
