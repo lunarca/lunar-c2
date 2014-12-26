@@ -28,10 +28,10 @@ class LunarC2 < Sinatra::Base
 	register Sinatra::Flash
 
 	# Register routes
-	register Sinatra::LunarC2::Routing::C2
-	register Sinatra::LunarC2::Routing::Auth
-	register Sinatra::LunarC2::Routing::Core
-	register Sinatra::LunarC2::Routing::UI
+	register Routing::C2
+	register Routing::Auth
+	register Routing::Core
+	register Routing::UI
 
 	before do
 		pass if request.path_info == "/auth/login" || request.path_info.split("/")[1] == "c2"

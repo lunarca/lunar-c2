@@ -1,15 +1,11 @@
-module Sinatra
-	module LunarC2
-		module Routing
-			module Core
-				def self.registered(app)
+module Routing
+	module Core
+		def self.registered(app)
 
-					app.get '/' do 
-						redirect '/agents'
-					end
-
-				end
+			app.get '/' do 
+				redirect '/agents'
 			end
+
 		end
 	end
 end
