@@ -16,10 +16,10 @@ module Routing
 
 			app.post '/c2/initial' do
 				@secret = ""
-				if not @agent = Agent.first(mac: params[:mac])
-					@secret = SecureRandom.uuid
+				data = JSON.parse(params["data"])
 
-					@data = JSON.parse(params[:data])
+				if not @agent = Agent.first(name: data["hostname"])
+					@secret = SecureRandom.uuid
 
 					@agent = Agent.create(
 						name: data["hostname"],
